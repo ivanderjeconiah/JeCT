@@ -6,7 +6,8 @@
 
 //var
 float voltageSensor;
-uint8_t in1,in2;
+bool in1,in2;
+uint8_t in1Val, in2Val;
 int timer, rele1Timer,rele2Timer; 
 float batas;
 bool second=false;
@@ -26,12 +27,26 @@ void setup(){
   pinMode(RELE2, OUTPUT);
   pinMode(SW1, INPUT_PULLUP);
   pinMode(SW2, INPUT_PULLUP);
+  in1=digitalRead(SW1);
+  in2=digitalRead(SW2);
+  Serial.println(in1);
+  Serial.println(in2);
 }
 
 void loop(){
   if ((in1!=digitalRead(SW1)) && (in2!=digitalRead(SW2))){
+    Serial.println(in1);
+    Serial.println(in2);
     in1=digitalRead(SW1);
     in2=digitalRead(SW2);
+    if(in1){
+      in1Val=0;
+      in2Val=5;
+    }
+    else if (in2){
+      in2Val=0;
+      in1Val=5;
+    }
     batas=4.5;
     timer=millis();
     second=true;
@@ -40,13 +55,14 @@ void loop(){
   if (second){
     if(millis()-timer<60000){
       Volt();
-      if(in1-voltageSensor>=batas){
+      Serial.println(voltageSensor);
+      if(in1Val-voltageSensor>=batas){
         second=false;
         digitalWrite(RELE1,HIGH);
         rele1Stat=true;
         rele1Timer=millis();
       }
-      else if (in2-voltageSensor>=batas){
+      else if (in2Val-voltageSensor>=batas){
         second=false;
         digitalWrite(RELE2,HIGH);
         rele2Stat=true;
