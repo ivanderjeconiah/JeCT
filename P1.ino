@@ -25,6 +25,8 @@ void setup(){
   Serial.println("Starting");
   pinMode(RELE1, OUTPUT);
   pinMode(RELE2, OUTPUT);
+  digitalWrite(RELE1,LOW);
+  digitalWrite(RELE2,LOW);
   pinMode(SW1, INPUT_PULLUP);
   pinMode(SW2, INPUT_PULLUP);
   in1=digitalRead(SW1);
