@@ -25,8 +25,8 @@ void setup(){
   Serial.println("Starting");
   pinMode(RELE1, OUTPUT);
   pinMode(RELE2, OUTPUT);
-  digitalWrite(RELE1,LOW);
-  digitalWrite(RELE2,LOW);
+  digitalWrite(RELE1,HIGH);
+  digitalWrite(RELE2,HIGH);
   pinMode(SW1, INPUT_PULLUP);
   pinMode(SW2, INPUT_PULLUP);
   in1=digitalRead(SW1);
@@ -60,13 +60,13 @@ void loop(){
       Serial.println(voltageSensor);
       if(in1Val-voltageSensor>=batas){
         second=false;
-        digitalWrite(RELE1,HIGH);
+        digitalWrite(RELE1,LOW);
         rele1Stat=true;
         rele1Timer=millis();
       }
       else if (in2Val-voltageSensor>=batas){
         second=false;
-        digitalWrite(RELE2,HIGH);
+        digitalWrite(RELE2,LOW);
         rele2Stat=true;
         rele2Timer=millis();
       }
@@ -85,14 +85,14 @@ void loop(){
   if(rele1Stat){
     if(millis()-rele1Timer>=3000){
       rele1Stat=false;
-      digitalWrite(RELE1, LOW);
+      digitalWrite(RELE1, HIGH);
     }
   }
 
   if(rele2Stat){
     if(millis()-rele2Timer>=3000){
       rele2Stat=false;
-      digitalWrite(RELE2,LOW);
+      digitalWrite(RELE2,HIGH);
     }
   }
 
